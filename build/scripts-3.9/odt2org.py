@@ -26,7 +26,7 @@ from odtfile import ODTfile
 if __name__ == '__main__':
     if not ERROR:
         import optparse
-        _usage = u"""ODT2ORG: This software converts <filename.odt> (Open Office) into <filename.org> (emacs org-mode).
+        _usage = u'''ODT2ORG: This software converts <filename.odt> (Open Office) into <filename.org> (emacs org-mode).
 
    General usage: <python_with_path> %prog [<options>] <input_file> [<output_file>]
 
@@ -43,7 +43,7 @@ Some examples:
 - Forcing overwriting:
    python odt2org.py -f filename.odt
 
-"""
+'''
         _parser = optparse.OptionParser(usage = _usage, 
                                         version = "%prog 1.0" )
 
@@ -61,23 +61,20 @@ Some examples:
         (_options, _args) = _parser.parse_args()
 
         _isOK = True
-        _inputfile = None
-        if len(_args) == 0:
-            raise ValueError("No arguments given: python odt2org.py -h")
         if len(_args) > 0:
             _inputfile = os.path.realpath( _args[0] )
         else:
             _isOK = False
         
         if not _isOK:
-            print( u"""Get the help by writing: 
+            print '''Get the help by writing: 
 
    python odt2org.py -h
 
-""")
+'''
         
         if not os.path.isfile( _inputfile):
-            print( u'ERROR: the input file does not exist: %s' % _inputfile)
+            print u'ERROR: the input file does not exist: %s' % _inputfile
             _isOK = False
 
         # If the outputfile is not provided, it is used one based in the original.
@@ -90,13 +87,13 @@ Some examples:
             
         # Check if output directory is valid.
         if not os.path.isdir( os.path.split(_outputfile)[0] ):
-            print( 'ERROR: output dir does not exists: %s' % os.path.split(_outputfile)[0])
+            print 'ERROR: output dir does not exists: %s' % os.path.split(_outputfile)[0]
             _isOK = False
 
         # Overwritting
         if not _options.overwrite and os.path.isfile( _outputfile ):
-            print( u'ERROR: output file already exist: %s' % _outputfile)
-            print( u'       Use -f or --force to override')
+            print u'ERROR: output file already exist: %s' % _outputfile
+            print u'       Use -f or --force to override'
             _isOK = False
 
         # We have proper inputfile, outputfile and overwrite option.

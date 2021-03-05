@@ -28,19 +28,19 @@ from orgfile import ORGfile
 try:
     import zipfile
 except ImportError:
-    print u"ERROR: package 'zipfile' is mandatory. Install Python2.6 or higher"
+    print( u"ERROR: package 'zipfile' is mandatory. Install Python2.6 or higher")
     ERROR=True
 
 try:
     from lxml import etree
 except ImportError:
-    print u'ERROR: install "nxml": http://codespeak.net/lxml/'
+    print( u'ERROR: install "nxml": http://codespeak.net/lxml/')
     ERROR = True
 
 try:
-    import OleFileIO_PL as ole
+    import olefile as ole
 except ImportError:
-    print u'ERROR: please, install "OleFileIO_PL": http://www.decalage.info/files/OleFileIO_PL-0.18.zip'
+    print( u'ERROR: please, install "olefile": https://www.decalage.info/en/olefile')
     # http://www.decalage.info/en/python/olefileio
     ERROR = True
 
@@ -165,10 +165,10 @@ class ODTfile:
             except:
                 _warnings.append(_i['child'].tag)
         _warnings = set(_warnings)
-        print u"WARNING: following items are present in the document and won't be interpreted:"
+        print( u"WARNING: following items are present in the document and won't be interpreted:" )
         for _i in _warnings:
-            print u"   %s" % _i
-        print u"\n"
+            print( u"   %s" % _i)
+        print( u"\n")
 
 
         # Ensure the list only contains info that we process.
@@ -284,7 +284,7 @@ class ODTfile:
     def process_regroup(self,_list):
         _newlist = []
         _tmp = u''
-        for _i in xrange(len(_list)):
+        for _i in range(len(_list)):
             _item = _list[_i]
             if _item.__contains__('child'):
                 if _tmp != u'':
@@ -564,11 +564,11 @@ class ODTfile:
         """
         _nesting = _list[idx]['nesting']
         _count = 0
-        for _i in xrange(idx+1, len(_list)):
+        for _i in range(idx+1, len(_list)):
             try:
                 _list[_i]['nesting']
             except:
-                print u"ERROR: it should contains 'nesting' information:\n", _list[_i]
+                print( u"ERROR: it should contains 'nesting' information:\n", _list[_i] )
             if _list[_i]['nesting'] > _nesting:
                 _count += 1
             else:
@@ -587,7 +587,7 @@ class ODTfile:
         #print _istagged
         _pairs = []
         _n = 0
-        for _i in xrange(len(_list)):
+        for _i in range(len(_list)):
             if len(_pairs) > 0:
                 _limit = _pairs[-1][1]
             else:
@@ -628,7 +628,7 @@ class ODTfile:
                     clean = False ):
         _pairs = self.extract_children(_list, tag )
         if tag == 'list':
-            print '    PAIRS: ',_pairs
+            print( '    PAIRS: ',_pairs)
         # Extract _list
         _newlist = []
         _oldidx = 0
@@ -658,7 +658,7 @@ class ODTfile:
         _nesting = 0
         #if tag == 'list-item':
         #   print '== OK ==', _limits
-        for _i in xrange(len(_list)):
+        for _i in range(len(_list)):
             _item = _list[_i]
             try:
                 if self.types[ _item['child'].tag ] == tag:
@@ -722,7 +722,7 @@ class ODTfile:
             if _tmp != None:
                 _list = _list + _tmp
         for _i in _list:
-            print _i
+            print(_i)
         return _list
 
 
@@ -834,7 +834,7 @@ class ODTfile:
             try:
                 os.rename(_extractedfile,_new)
             except WindowsError:
-                print 'ERROR: file already exists: %s' % _new
+                print( 'ERROR: file already exists: %s' % _new)
             _extractedfile = _new
         return _extractedfile
         # Los ficheros se extraen a sus rutas originales
@@ -906,7 +906,7 @@ class Ole:
             _tmp = self._data.openstream( self.files[0] )
             _kernel = re.compile('[a-zA-Z]+\.[a-zA-Z]+\.[0-9]+')
             _tmp = _tmp.read()
-            print 'ERROR: It is not configured for: %s' % _kernel.findall( _tmp )[0]
+            print( 'ERROR: It is not configured for: %s' % _kernel.findall( _tmp )[0])
             #print self.files
             #print _tmp
             return None
@@ -937,7 +937,7 @@ class Ole:
                 try:
                     os.rename(self.filename,_filename)
                 except WindowsError:
-                    print 'WARNING: the file already exists: %s' % _filename
+                    print( 'WARNING: the file already exists: %s' % _filename)
                 return _filename
 
     def __close__(self):
